@@ -13,7 +13,7 @@
 | `show snmp user`                                   | Lists configured SNMPv3 users and their settings.                      |                                                           |
 | `show snmp group`                                  | Displays SNMP groups and associated views.                             |                                                           |
 | `show ip access-lists`                             | Displays configured IP ACLs.                                           |                                                           |
-| `show run | b line vty                                        | begin line vty\`                                                       | Jumps to the VTY configuration section in running config. |
+| `show run | b line vty                             | Jumps to the VTY configuration section in running config. |
 | `show vlan brief`                                  | Displays VLAN IDs, names, and assigned ports.                          |                                                           |
 | `show interfaces trunk`                            | Shows interfaces operating as trunk ports and allowed VLANs.           |                                                           |
 | `show mac address-table`                           | Displays the MAC address table (learned addresses).                    |                                                           |
