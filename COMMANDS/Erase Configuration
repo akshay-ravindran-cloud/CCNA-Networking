@@ -1,0 +1,30 @@
+## Erase
+
+# Wednesday, January 29, 2025
+8:00 AM
+
+For Cisco Switch:
+	1. Access the Switch: Connect to the switch using a console cable and terminal emulator software (like PuTTY or Tera Term).
+	2. Enter Privileged EXEC Mode:
+enable
+	3. Erase the Configuration:
+write erase
+or
+erase startup-config
+	4. Reload the Switch:
+Copy
+reload
+When prompted to save the configuration, respond with "no".
+	
+For Cisco Wireless LAN Controller (WLC):
+	1. Access the WLC: Connect to the WLC using a console cable or SSH.
+	2. Enter the Command Mode: If you are not already in privileged EXEC mode, enter:
+enable
+	3. Erase the Configuration:
+reset config
+	4. Reboot the WLC:
+reset system
+Important Notes:
+	• Backup Configuration: Before erasing any configuration, ensure you have a backup if you may need to restore it later.
+	• Impact on Network: Erasing the configuration will disrupt network services, so perform this action during a maintenance window or when it will have minimal impact.
+If you have any specific models or additional requirements, please provide more details for tailored instructions.

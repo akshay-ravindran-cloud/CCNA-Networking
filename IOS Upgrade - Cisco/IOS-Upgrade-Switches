@@ -1,0 +1,79 @@
+### SWITCH IOS UPGRADE
+
+## Check available space on the switch
+Use the following command to check the free space on the switch:
+#show file system
+#dir
+
+## Identify the correct disk name
+The switch may use different disk names depending on the model and configuration. Common disk names include:
+
+#bootflash:
+#flash:
+#flash-1:
+#usbflash0:
+#show flash:
+
+
+## Download the IOS image
+Go to Cisco.com and download the appropriate IOS image for your switch.
+Make sure to note the MD5 checksum provided on the download page.
+You'll use this to verify the integrity of the file after downloading.
+
+## Copy the IOS image to the switch
+On the switch CLI, use the following command to copy the IOS image from an FTP server to the switch’s flash storage:
+switch# copy ftp: flash:
+You will be prompted to enter the following details:
+
+Address or name of remote host
+Enter the IP address of the FTP server:
+Address or name of remote host []? 10.xxx.xxx.xxx
+Source filename
+Enter the exact filename of the IOS image:
+Source filename []? cat3k_caa-universalk9.16.12.07.SPA.bin
+Destination filename
+You can press Enter to accept the default (same as source), or specify a new name:
+
+Destination filename [cat3k_caa-universalk9.16.12.07.SPA.bin]?
+The switch will then begin copying the file:
+
+Accessing ftp://10.xx.xx.xx/cat3k_caa-universalk9.16.12.07.SPA.bin...
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+# After loading ios image, verify the image with md5 key
+switch#verify /md5 flash:cat3k_caa-universalk9.16.12.07.SPA.bin
+
+
+## Modify Switch Boot Path and Load New IOS Image
+
+## Set the Boot Path
+
+Enter global configuration mode and set the new IOS image:
+
+Switch# config t
+Switch(config)# boot system switch all flash:cat3k_caa-universalk9.16.12.07.SPA.bin
+Switch(config)# end
+
+
+## Verify boot path
+Switch# show boot
+
+OUTPUT : BOOT path-list: flash:cat3k_caa-universalk9.16.12.07.SPA.bin
+
+Save Configuration and Reboot the Switch
+Save the configuration with the “write mem”/ wr command.
+
+Switch#write mem
+
+To load the new image you will need to reboot the switch.
+
+Switch#reload
+
+
+Verify image after reboot
+
+switch# sh version
+switch# sh platform
+
+

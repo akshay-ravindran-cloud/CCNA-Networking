@@ -1,0 +1,6 @@
+Discards Bootstrap Protocol (BOOTP) requests but leaving DHCP services enabled
+
+sh run | i bootp
+ 
+conf t
+ip dhcp bootp ignore

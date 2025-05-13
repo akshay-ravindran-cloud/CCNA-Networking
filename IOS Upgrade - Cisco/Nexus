@@ -1,0 +1,118 @@
+For Nexus Switch 5672 UP
+
+The upgrade path for 7.3(13)N1(1) from your current release 7.3(8)N1(1) is:
+7.3(8)N1(1) >> 7.3(13)N1(1)
+You can directly upgrade to the target release.
+
+Please find the Release Notes for NX-OS Release 7.x below:
+https://www.cisco.com/c/en/us/td/docs/switches/datacenter/nexus5600/sw/release/notes/7x/Nexus5600_Release_Notes_7x.html
+
+You can download the kickstart and System images from the below links:
+
+Release 7.3(13)N1(1):
+Kickstart Image:
+https://software.cisco.com/download/home/286221337/type/282088130/release/7.3(13)N1(1)
+Software Image:
+https://software.cisco.com/download/home/286221337/type/282088129/release/7.3(13)N1(1)
+
+Key points to be followed before upgrading the device:
+- Take a maintenance window.
+- Take backup of configurations.
+- Having a console access while upgrading the devices is always a top idea.
+- If devices are working in VPC - upgrade the primary device or the operational primary device first.
+- Complete the entire upgrade process on one switch at a time.
+- Check the md5 hash value of the NX-OS images that are downloaded from the support website.
+      For example- switch# show file bootflash:<filename>md5sum
+- Do the pre checks or the compatibility checks by using below commands.
+   # show install all impact kickstart <kickstart image name> system <system image name>
+
+Please find the detailed upgrade procedure below:
+Step-1: Download the kickstart and system software files to a local server.
+Step-2: Verify that the required space is available in the bootflash: directory for the image file(s) to be copied.
+switch# dir bootflash: | sec Usage
+
+Usage for bootflash://sup-local
+1748185088 bytes used
+5806157824 bytes free
+7554342912 bytes total
+
+Step-3: Copy the new kickstart and system images to each switch bootflash by using a transfer protocol such as FTP, TFTP, SCP, or SFTP.
+Please use the below document to use the transfer protocols to share the files in the Switch bootflash:
+https://www.cisco.com/c/en/us/td/docs/switches/datacenter/nexus5600/sw/fundamentals/7x/b_5600_Fund_Config_7x/b_6k_Fund_Config_7x_chapter_01000.html
+
+Step-4: Enter the show install all impact command to validate the upgrade process and the components being upgraded.
+# show install all impact kickstart <kickstart image name> system <system image name>
+
+Step-5: Enter the install all kickstart image system image command on the vPC primary switch to upgrade the switch.
+# install all kickstart <kickstart image name> system <system image name>
+
+Step-6: After upgrade, use the #show version command to verify the upgrade on the vPC primary switch.
+
+After upgrading the vPC primary switch, use the same steps for vPC secondary switch.
+
+Please find the NX-OS Software Upgrade and Downgrade Guide below:
+https://www.cisco.com/c/en/us/td/docs/switches/datacenter/nexus5600/sw/upgrade/7313_N1_1/n5600_upgrade_downgrade_7313_n1_1.html
+
+=======================================================================================================================================================
+Switch1# copy ftp: bootflash:
+Enter source filename: n6000-uk9.7.3.13.N1.1.bin
+Enter vrf (If no input, current vrf 'default' is considered):
+Enter hostname for the ftp server: 10.x.x.x
+
+***** Transfer of file Completed Successfully *****
+Copy complete, now saving to disk (please wait)...
+Switch1# sh file bootflash:n6000-uk9.7.3.13.N1.1.bin md5sum
+cbaf202afe7eb1047815fb99509fd3a6
+Switch1# COPy  ftp: bootflash:
+Enter source filename: n6000-uk9-kickstart.7.3.13.N1.1.bin
+Enter vrf (If no input, current vrf 'default' is considered):
+Enter hostname for the ftp server: 10.x.x.x
+Enter username: anonymous
+Password:
+***** Transfer of file Completed Successfully *****
+Copy complete, now saving to disk (please wait)...
+Switch1# sh file bootflash:n6000-uk9-kickstart.7.3.13.N1.1.bin md5sum
+
+Switch1# copy run start
+[########################################] 100%
+Copy complete.
+Switch1# show install all impact kickstart n6000-uk9-kickstart.7.3.13.N1.1.bin system n6000-uk9.7.3.13.N1.1.bin
+
+Verifying image bootflash:/n6000-uk9-kickstart.7.3.13.N1.1.bin for boot variable "kickstart".
+[####################] 100% -- SUCCESS
+
+Verifying image bootflash:/n6000-uk9.7.3.13.N1.1.bin for boot variable "system".
+[####################] 100% -- SUCCESS
+
+Verifying image type.
+[####################] 100% -- SUCCESS
+
+Extracting "system" version from image bootflash:/n6000-uk9.7.3.13.N1.1.bin.
+[####################] 100% -- SUCCESS
+
+Extracting "kickstart" version from image bootflash:/n6000-uk9-kickstart.7.3.13.N1.1.bin.
+[####################] 100% -- SUCCESS
+
+Extracting "bios" version from image bootflash:/n6000-uk9.7.3.13.N1.1.bin.
+[####################] 100% -- SUCCESS
+
+Performing module support checks.
+[####################] 100% -- SUCCESS
+
+Notifying services about system upgrade.
+[####################] 100% -- SUCCESS
+
+
+
+Compatibility check is done:
+Module  bootable          Impact  Install-type  Reason
+------  --------  --------------  ------------  ------
+     1       yes  non-disruptive         reset
+     2       yes  non-disruptive       rolling
+
+
+
+Switch1# Copy run start
+[########################################] 100%
+Copy complete.
+CHORNXN101#

@@ -1,0 +1,102 @@
+###  ----- Hostname and Domain -----
+hostname SWITCH-NAME
+ip domain name example.local
+
+! ----- Secure Password Handling -----
+service password-encryption
+enable secret StrongEnableSecret123!
+
+! ----- AAA and TACACS+ Configuration -----
+aaa new-model
+
+aaa authentication login default group tacacs+ local
+aaa authentication login ConsoleLocal local
+aaa authentication enable default enable
+
+aaa authorization exec default group tacacs+ local
+aaa authorization exec ConsoleLocal local
+
+aaa authorization commands 0 default group tacacs+ local
+aaa authorization commands 1 default group tacacs+ local
+aaa authorization commands 15 default group tacacs+ local
+
+aaa accounting exec default start-stop group tacacs+
+aaa accounting commands 1 default start-stop group tacacs+
+aaa accounting commands 15 default start-stop group tacacs+
+aaa accounting connection default start-stop group tacacs+
+
+aaa session-id common
+
+tacacs-server timeout 10
+tacacs-server key 7 YOUR_SHARED_SECRET_ENCRYPTED
+
+tacacs server TACACS-SERVER1
+ address ipv4 XXX.XXX.XXX.1
+ key 7 YOUR_SHARED_SECRET_ENCRYPTED
+
+! ----- Local Fallback Account -----
+username admin privilege 15 secret LocalFallbackPass123!
+
+! ----- Secure Management (SSH, No Telnet) -----
+ip ssh version 2
+ip ssh authentication-retries 3
+line vty 0 4
+ login authentication default
+ authorization exec default
+ transport input ssh
+ exec-timeout 5 0
+line con 0
+ login authentication ConsoleLocal
+ authorization exec ConsoleLocal
+
+! ----- SNMPv3 Example (Read-Only Group) -----
+snmp-server view READONLY iso included
+snmp-server group MONITOR v3 priv read READONLY
+snmp-server user SNMPUSER MONITOR v3 auth sha YourAuthPass priv aes 128 YourPrivPass
+
+! ----- NTP -----
+ntp server XXX.XXX.XXX.100
+ntp server XXX.XXX.XXX.101
+
+! ----- Logging -----
+logging buffered 10000
+logging trap notifications
+logging source-interface Vlan1
+logging host XXX.XXX.XXX.200
+
+! ----- Disable Unused Services -----
+no ip http server
+no ip http secure-server
+no service tcp-small-servers
+no service udp-small-servers
+no ip source-route
+no ip bootp server
+no service finger
+no cdp run
+
+! ----- VLANs -----
+vlan 10
+ name Management
+vlan 20
+ name Data
+vlan 30
+ name Voice
+
+! ----- Interface Example -----
+interface range GigabitEthernet1/0/1 - 24
+ switchport mode access
+ switchport access vlan 20
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+
+! ----- Management Interface -----
+interface Vlan10
+ ip address XXX.XXX.XXX.10 255.255.255.0
+ no shutdown
+
+! ----- Default Route (for Management only) -----
+ip default-gateway XXX.XXX.XXX.1
+
+! ----- Save Configuration -----
+end
+write memory

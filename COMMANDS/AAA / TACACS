@@ -1,0 +1,106 @@
+sh run |  i tacacs
+sh run | i aaa
+sh ip int br
+sh run | b tacacs server
+
+	tacacs server server_name
+	 address ipv4 <10.X.X.X>
+	 key 7 SECRET KEY
+	 timeout 30
+	tacacs server server_name
+	 address ipv4 <10.X.X.X>
+	 key 7 <SECRET KEY>
+	 timeout 30
+	
+
+Add AAA configuration
+
+! Enable AAA
+aaa new-model
+
+! -----------------------------
+! Authentication Configuration
+! -----------------------------
+
+! Default login: Try TACACS+ first, fallback to local
+aaa authentication login default group tacacs+ local
+
+! Console login: Use only local authentication
+aaa authentication login ConsoleLocal local
+
+! Enable password authentication
+aaa authentication enable default enable
+
+! -----------------------------
+! Authorization Configuration
+! -----------------------------
+
+! Exec authorization for remote sessions
+aaa authorization exec default group tacacs+ local
+
+! Console exec authorization
+aaa authorization exec ConsoleLocal local
+
+! Command authorization (privilege levels 0, 1, 15)
+aaa authorization commands 0 default group tacacs+ local
+aaa authorization commands 1 default group tacacs+ local
+aaa authorization commands 15 default group tacacs+ local
+
+! -----------------------------
+! Accounting Configuration
+! -----------------------------
+
+! Accounting for exec sessions
+aaa accounting exec default start-stop group tacacs+
+
+! Accounting for commands at privilege levels 1 and 15
+aaa accounting commands 1 default start-stop group tacacs+
+aaa accounting commands 15 default start-stop group tacacs+
+
+! Accounting for connection-related events (e.g., Telnet, SSH)
+aaa accounting connection default start-stop group tacacs+
+
+! Use a consistent session ID for all AAA records
+aaa session-id common
+
+! -----------------------------
+! TACACS+ Server Configuration
+! -----------------------------
+
+tacacs-server timeout 10
+tacacs-server key YOUR_SHARED_SECRET
+
+! Define TACACS+ servers (replace with your IPs)
+tacacs server TACACS-SERVER1
+ address ipv4 XXX.XXX.XXX.1
+ key YOUR_SHARED_SECRET
+
+tacacs server TACACS-SERVER2
+ address ipv4 XXX.XXX.XXX.2
+ key YOUR_SHARED_SECRET
+
+! -----------------------------
+! Local User Fallback Account
+! -----------------------------
+
+username admin privilege 15 secret StrongLocalPassword123!
+
+! -----------------------------
+! Apply Console AAA Profile
+! -----------------------------
+
+line con 0
+ login authentication ConsoleLocal
+ authorization exec ConsoleLocal
+ authorization commands 15 ConsoleLocal
+
+! -----------------------------
+! Apply VTY (SSH) AAA Profile
+! -----------------------------
+
+line vty 0 4
+ login authentication default
+ authorization exec default
+ authorization commands 15 default
+ accounting exec default
+ transport input ssh

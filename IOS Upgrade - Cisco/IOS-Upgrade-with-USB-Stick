@@ -1,0 +1,17 @@
+### To upgrade IOS with USB
+
+## First check the ios image is in USB with the help of below command:
+
+Switch#dir usbflash0:
+
+## Run this command to copy the image from USB to the switch.
+
+copy usbflash0: flash
+
+## Here is the output from my switch.
+
+Switch#copy usbflash0: flash
+Source filename [c2960cx-universalk9-mz.152-7.E5.bin]?
+Destination filename [c2960cx-universalk9-mz.152-7.E5.bin]?
+
+## Once the image is copied the remaining steps are the same.

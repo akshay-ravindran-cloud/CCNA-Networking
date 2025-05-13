@@ -1,0 +1,7 @@
+## Config
+on L3 VLAN
+interface Vlan10
+no ip proxy-arp
+no ip unreachables
+no ip redirects
+exit

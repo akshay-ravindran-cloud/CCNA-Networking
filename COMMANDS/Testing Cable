@@ -1,0 +1,16 @@
+sh cable-diagnostics tdr int ____
+test cable-diagnostics tdr int ____
+
+check if its open or short
+
+TDR (Time-Domain Reflectometry) is used to diagnose Ethernet cable faults such as open circuits, 
+shorts, bad crimps, or cable length issues.
+
+Use only on supported switches (e.g., 2960, 3560, 3650, etc.).
+The interface must be in down or non-connected state on some platforms for the test to run.
+
+Useful for identifying:
+Cable breaks (open)
+Shorts
+Cable length
+Improper terminations

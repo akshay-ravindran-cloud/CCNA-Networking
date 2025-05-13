@@ -1,0 +1,6 @@
+interface TenGigabitEthernet1/0/24
+ description Aruba_AP
+ switchport trunk native vlan 15
+ switchport trunk allowed vlan 15,300,350-352
+ switchport mode trunk
+end

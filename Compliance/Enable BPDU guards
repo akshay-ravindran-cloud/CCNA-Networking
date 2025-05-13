@@ -1,0 +1,17 @@
+## First on trunk ports we need to disable bpdu
+
+sh int status | i trunk
+
+# Find all trunk ports
+
+Then 
+Apply this
+
+spanning-tree bpduguard disable 
+
+
+# Then configure globally
+conf t
+spanning-tree portfast bpduguard default
+exit
+wr

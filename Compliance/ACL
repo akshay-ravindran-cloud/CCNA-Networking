@@ -1,0 +1,17 @@
+remote administration of devices based on Inbound ACL
+
+
+add access list
+sh ip access-list
+
+check if its standard or extended
+
+conf t
+ip access-list standard ___
+or
+ip access-list extended _____
+
+
+# PERMIT IP 
+
+inside the acl permit the required ips

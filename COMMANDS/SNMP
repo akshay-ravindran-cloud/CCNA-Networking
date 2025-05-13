@@ -1,0 +1,6 @@
+sh snmp user -- > check whether read and write nestle-orion
+sh ip access-list NESTLE-ORION --> check ips
+sh run | b line vty --> what the access class number 
+sh ip access-list ______ --> access class number / vty-access
+
+

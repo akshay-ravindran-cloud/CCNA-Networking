@@ -1,0 +1,20 @@
+### Bundle mode to install mode:
+ 
+conf t
+no boot system switch all flash:<current .bin file>
+boot system switch all flash:<new ios .bin file>
+exit
+
+## From bundle to Install mode for 9300
+
+config# no <existing boot variable>
+
+wr
+
+config# boot systemflash:packages.conf
+
+wr
+
+install add file flash:cat9k_iosxe.x.x.x.SPA.bin activate commit
+
+This operation requires a reload of the system.

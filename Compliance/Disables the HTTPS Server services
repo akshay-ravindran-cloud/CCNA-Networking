@@ -1,0 +1,13 @@
+Disables the HTTPS Server services
+
+show run | i http
+ 
+if any of these commands are there we need to remove. Its only for switch
+ ip http server
+ip http secure-server
+ 
+
+For WLC need to remove only 
+ 
+ ip http server
+ 

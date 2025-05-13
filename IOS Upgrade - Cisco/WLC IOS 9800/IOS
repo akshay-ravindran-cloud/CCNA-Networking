@@ -1,0 +1,28 @@
+### Get the IOS file downloaded and copied to bootflash
+
+install add file bootflash:C9800-L-universalk9_wlc.17.09.06.SPA.bin
+ 
+ 
+ap image predownload
+
+# Wait till it download is completed
+ 
+show ap image
+ 
+# shows the current status
+
+ap image swap
+ 
+# swap the images
+
+show ap image
+ 
+# shows the current images after swapping
+ 
+install activate 
+ 
+# install the ios
+ 
+install commit 
+
+# commit the change

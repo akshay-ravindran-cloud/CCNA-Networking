@@ -1,0 +1,22 @@
+### Set Boot Variable
+Cat9300(config)#boot system flash:packages.conf
+Cat9300(config)#end
+Cat9300#wr
+
+
+Cat9300#show boot system
+## Software Install Image to Flash
+Cat9300#install add file flash:cat9k_iosxe.x.x.x.SPA.bin activate commit
+
+# For 24 port switch - eg 9200 if its only having 24 ports -- check cisco website for ios file.
+install add file flash:cat9k_lite_iosxe.17.09.06a.SPA.bin activate commit
+
+## Your screen will produce a similar output and requires a reload. Confirm a reload by hitting ‘y’.
+
+OR You can set boot marker earlier and u can reload the switch in downtime window:
+
+request platform software package install switch all file flash:<new ios image .bin> new auto-copy
+
+Example:
+request platform software package install switch all file flash:cat9k_iosxe.17.09.06a.SPA.bin new auto-copy
+

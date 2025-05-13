@@ -1,0 +1,39 @@
+| Command                                            | Description                                                            |                                                           |
+| -------------------------------------------------- | ---------------------------------------------------------------------- | --------------------------------------------------------- |
+| `show interface status`                            | Displays status, speed, and duplex of all interfaces.                  |                                                           |
+| `show ip interface brief`                          | Shows IP info and status of all interfaces (useful for VLANs and SVI). |                                                           |
+| `show logging`                                     | Displays system log messages (syslog buffer).                          |                                                           |
+| `show version`                                     | Shows switch uptime, model, IOS version, and license info.             |                                                           |
+| `show switch`                                      | Displays stack member information and roles.                           |                                                           |
+| `show platform`                                    | Provides hardware platform information (model, ASICs, etc.).           |                                                           |
+| `show inventory`                                   | Lists hardware components (modules, fans, power supplies).             |                                                           |
+| `show running-config`                              | Shows the current running configuration.                               |                                                           |
+| `show run interface <INTERFACE>`                   | Displays the configuration of a specific interface.                    |                                                           |
+| `show startup-config`                              | Shows the configuration stored in NVRAM (boot-up config).              |                                                           |
+| `show snmp user`                                   | Lists configured SNMPv3 users and their settings.                      |                                                           |
+| `show snmp group`                                  | Displays SNMP groups and associated views.                             |                                                           |
+| `show ip access-lists`                             | Displays configured IP ACLs.                                           |                                                           |
+| `show run | b line vty                                        | begin line vty\`                                                       | Jumps to the VTY configuration section in running config. |
+| `show vlan brief`                                  | Displays VLAN IDs, names, and assigned ports.                          |                                                           |
+| `show interfaces trunk`                            | Shows interfaces operating as trunk ports and allowed VLANs.           |                                                           |
+| `show mac address-table`                           | Displays the MAC address table (learned addresses).                    |                                                           |
+| `show spanning-tree`                               | Shows Spanning Tree Protocol (STP) info and root bridge status.        |                                                           |
+| `show etherchannel summary`                        | Shows EtherChannel bundle status and interfaces.                       |                                                           |
+| `show port-security interface <INTERFACE>`         | Displays port security settings and violations for an interface.       |                                                           |
+| `show cdp neighbors`                               | Lists directly connected Cisco devices (Layer 2 discovery).            |                                                           |
+| `show cdp neighbors detail`                        | Detailed info including IP and platform of CDP neighbors.              |                                                           |
+| `show lldp neighbors`                              | Lists directly connected devices using LLDP.                           |                                                           |
+| `show lldp neighbors detail`                       | Provides detailed info for each LLDP neighbor.                         |                                                           |
+| `show environment power`                           | Displays power supply status and input/output levels.                  |                                                           |
+| `show environment temperature`                     | Shows internal temperature sensors and thresholds.                     |                                                           |
+| `show interfaces <INTERFACE>`                      | Detailed interface status, errors, speed, and statistics.              |                                                           |
+| `show interfaces description`                      | Displays interface descriptions and operational status.                |                                                           |
+| `show arp`                                         | Displays IP-to-MAC address mapping from the ARP table.                 |                                                           |
+| `show clock`                                       | Displays current system time.                                          |                                                           |
+| `show ntp status`                                  | Shows NTP synchronization status.                                      |                                                           |
+| `show ntp associations`                            | Lists NTP peers and synchronization state.                             |                                                           |
+| `show ip route`                                    | Shows IP routing table (only on Layer 3-capable switches).             |                                                           |
+| `show controllers ethernet-controller`             | Diagnostic command for physical port details.                          |                                                           |
+| `show cable-diagnostics tdr interface <INTERFACE>` | Tests cable integrity using TDR (Time Domain Reflectometer).           |                                                           |
+
+
